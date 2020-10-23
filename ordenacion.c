@@ -59,22 +59,23 @@ int InsertSortInv(int *tabla, int ip, int iu)
   return cont;
 }
 
-short merge(int *tabla, int ip, int iu, int imedio)
+int merge(int *tabla, int ip, int iu, int imedio)
 {
-    int i, j, k, cont = 0;
-    int *aux;
+    int i = ip;
+    int j = imedio + 1;
+    int k = 0;
+    int cont = 0;
+    int *aux=NULL;
     assert(ip >= 0 && iu >= 0 && ip <= iu);
     assert(tabla);
-    aux = (int *)malloc((iu - ip + 1) * sizeof(aux[0]));
+    aux = (int*)malloc((iu - ip + 1) * sizeof(int));
     if (!aux)
         return ERR;
 
-    i = ip;
-    j = imedio + 1;
-    k = ip;
+
     while (i <= imedio && j <= iu)
     {
-        if (++cont && tabla[i] < tabla[j])
+        if (tabla[i] < tabla[j])
         {
             aux[k] = tabla[i];
             i++;
@@ -83,8 +84,9 @@ short merge(int *tabla, int ip, int iu, int imedio)
         {
             aux[k] = tabla[j];
             j++;
-            k++;
         }
+        k++;
+        cont++;
     }
     if (i > imedio)
     {
@@ -97,14 +99,14 @@ short merge(int *tabla, int ip, int iu, int imedio)
     }
     else if (j > iu)
     {
-        while (i < imedio)
+        while (i <= imedio)
         {
             aux[k] = tabla[i];
             i++;
             k++;
         }
     }
-    for (i = ip, j = 0; i < iu; i++, j++)
+    for (i = ip, j = 0; i <= iu; i++, j++)
     {
         tabla[i] = aux[j];
     }
@@ -115,14 +117,14 @@ short merge(int *tabla, int ip, int iu, int imedio)
 int mergesort(int *tabla, int ip, int iu)
 {
     int cont = 0;
-    int num1, num2, num3, m;
+    int num1=0, num2=0, num3=0, m=0;
 
     assert(ip >= 0 && iu >= 0 && ip <= iu && tabla);
 
     if (iu == ip)
         return 0;
 
-    else
+    else if (ip<iu)
     {
         m = (ip + iu) / 2;
         num1 = mergesort(tabla, ip, m);
