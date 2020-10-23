@@ -58,12 +58,11 @@ int InsertSortInv(int *tabla, int ip, int iu)
   return cont;
 }
 
-
-
-short merge(int *tabla, int ip, int iu, int imedio){
-    int i, j, k, cont=0;
+short merge(int *tabla, int ip, int iu, int imedio)
+{
+    int i, j, k, cont = 0;
     int *aux;
-    assert(ip >= 0&&iu>=0&&ip<=iu);
+    assert(ip >= 0 && iu >= 0 && ip <= iu);
     assert(tabla);
     aux = (int *)malloc((iu - ip + 1) * sizeof(aux[0]));
     if (!aux)
@@ -74,7 +73,7 @@ short merge(int *tabla, int ip, int iu, int imedio){
     k = ip;
     while (i <= imedio && j <= iu)
     {
-        if (++cont&&tabla[i] < tabla[j])
+        if (++cont && tabla[i] < tabla[j])
         {
             aux[k] = tabla[i];
             i++;
@@ -86,7 +85,8 @@ short merge(int *tabla, int ip, int iu, int imedio){
             k++;
         }
     }
-    if (i > imedio) {
+    if (i > imedio)
+    {
         while (j <= iu)
         {
             aux[k] = tabla[j];
@@ -95,7 +95,7 @@ short merge(int *tabla, int ip, int iu, int imedio){
         }
     }
     else if (j > iu)
-    {                                             
+    {
         while (i < imedio)
         {
             aux[k] = tabla[i];
@@ -104,32 +104,35 @@ short merge(int *tabla, int ip, int iu, int imedio){
         }
     }
     for (i = ip, j = 0; i < iu; i++, j++)
-        {
-            tabla[i] = aux[j];
-        }
-        free(aux);
-        return cont;
+    {
+        tabla[i] = aux[j];
     }
+    free(aux);
+    return cont;
+}
 
+int mergesort(int *tabla, int ip, int iu)
+{
+    int cont = 0;
+    int num1, num2, num3, m;
 
+    assert(ip >= 0 && iu >= 0 && ip <= iu && tabla);
 
+    if (iu == ip)
+        return 0;
 
-int mergesort(int* tabla, int ip, int iu){
-    int cont=0;
-    int num1,num2,num3,m;
-
-    assert(ip>=0&&iu>=0&&ip<=iu&&tabla);
-
-    if(iu==ip) return 0;
-
-    else{
-        m=(ip+iu)/2;
-        num1=mergesort(tabla,ip,m);
-        if(num1!=ERR) cont +=num1;
-        num2=mergesort(tabla, m+1,iu);
-        if(num2!=ERR) cont+=num2;
-        num3=merge(tabla,ip,iu,m);
-        if(num3!=ERR) cont+=num3;
+    else
+    {
+        m = (ip + iu) / 2;
+        num1 = mergesort(tabla, ip, m);
+        if (num1 != ERR)
+            cont += num1;
+        num2 = mergesort(tabla, m + 1, iu);
+        if (num2 != ERR)
+            cont += num2;
+        num3 = merge(tabla, ip, iu, m);
+        if (num3 != ERR)
+            cont += num3;
     }
     return cont;
 }
