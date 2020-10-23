@@ -86,13 +86,14 @@ short Combinar(int *t, int p, int m, int u){
             k++;
         }
     }
-    if (i > m) 
+    if (i > m) {
         while (j <= u)
         {
             aux[k] = t[j];
             j++;
             k++;
         }
+    }
     else if (j > u)
     {                                             
         while (i < m)
@@ -101,6 +102,7 @@ short Combinar(int *t, int p, int m, int u){
             i++;
             k++;
         }
+    }
     for (i = p, j = 0; i < u; i++, j++)
         {
             t[i] = aux[j];
