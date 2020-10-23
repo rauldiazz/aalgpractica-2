@@ -8,6 +8,7 @@
  * Fecha: 16-09-2019
  *
  */
+#include <stdlib.h>
 #include <assert.h>
 #include "ordenacion.h"
 
